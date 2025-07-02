@@ -2,7 +2,12 @@ import miniupnpc
 
 # Initialize UPnP
 upnp = miniupnpc.UPnP()
-upnp.discover()  # Discover UPnP-enabled devices
+try:
+    upnp.discover()  # Discover UPnP-enabled devices
+except Exception as e:
+    if str(e) != "Success":
+        raise  # Only ignore the "Success" exception
+
 upnp.selectigd()  # Select the gateway (router)
 
 # Get external IP address
